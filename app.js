@@ -62,8 +62,8 @@ const UICtrl = (function() {
     },
     getItemInput: function() {
       return {
-        name: document.querySelector(UISelectors.itemNameInput.value),
-        calories: document.querySelector(UISelectors.itemCaloriesInput.value)
+        name: document.querySelector(UISelectors.itemNameInput).value,
+        calories: document.querySelector(UISelectors.itemCaloriesInput).value
       }
     },
     getSelectors: function() {
@@ -89,6 +89,8 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
   const itemAddSubmit = function(e) {
     // Get form input from UI Controller
     const input = UICtrl.getItemInput();
+
+    
 
     e.preventDefault();
   }
