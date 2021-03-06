@@ -37,6 +37,20 @@ const UICtrl = (function() {
 
   // Public methods
   return {
+    populateItemList: function(items) {
+      let html = '';
+
+      items.forEach(function(item) {
+        html += `
+        <li class="collection-item" id="item-${item.id}">
+          <strong>${item.name}: </strong> <em>${item.calories} calories</em>
+          <a href="#" class="secondary-content">
+            <i class="edit-item fa fa-pencil"></i>
+          </a>
+        </li>
+        `;
+      })
+    }
   }
   
 })();
