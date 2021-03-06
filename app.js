@@ -52,7 +52,8 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
       // Fetch items from data structure
       const items = ItemCtrl.getItems();
 
-
+      // Populate list with items
+      UICtrl.populateItemList(items);
       
     }
   }
