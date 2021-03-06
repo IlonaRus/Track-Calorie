@@ -22,6 +22,9 @@ const ItemCtrl = (function() {
 
   // Public methods
   return {
+    getItems: function() {
+      return data.items;
+    },
     logData: function() {
       return data;
     }
@@ -46,7 +49,11 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
   // Public methods
   return {
     init: function() {
-      console.log('init App...')
+      // Fetch items from data structure
+      const items = ItemCtrl.getItems();
+
+
+      
     }
   }
   
