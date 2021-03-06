@@ -11,9 +11,19 @@ const ItemCtrl = (function() {
 
   // Data Structure/State
   const data = {
-    items: [],
+    items: [
+      {id:0, name: 'Steak Dinner', calories: 1200},
+      {id:1, name: 'Pizza', calories: 900},
+      {id:2, name: 'Cookie', calories: 400}
+    ],
     currentItem: null,
     totalCalories: 0
+  }
+
+  return {
+    logData: function() {
+      return data;
+    }
   }
 })();
 
