@@ -98,7 +98,9 @@ const UICtrl = (function() {
       li.innerHTML = `<strong>${item.name}: </strong> <em>${item.calories} calories</em>
       <a href="#" class="secondary-content">
         <i class="edit-item fa fa-pencil"></i>
-      </a>`
+      </a>`;
+      // Insert item
+      document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li)
     },
     getSelectors: function() {
       return UISelectors;
