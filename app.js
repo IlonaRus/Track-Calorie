@@ -57,6 +57,23 @@ const ItemCtrl = (function() {
       return found;
     },
 
+    updateItem: function (name, calories) {
+      // Calories to number
+      calories = parseInt(calories);
+
+      let found = null;
+
+      data.items.forEach(function(item) {
+        if (item.id === data.currentItem.id) {
+          item.name = name;
+          item.calories = calories;
+          found = item;
+        }
+      });
+
+      return found;
+    },
+
     setCurrentItem: function(item) {
       data.currentItem = item;
     },
@@ -91,6 +108,7 @@ const ItemCtrl = (function() {
 const UICtrl = (function() {
   const UISelectors =  {
     itemList: '#item-list',
+    listItems: '#item-list li',
     addButton: '.add-btn',
     updateButton: '.update-btn',
     deleteButton: '.delete-btn',
@@ -144,6 +162,24 @@ const UICtrl = (function() {
       </a>`;
       // Insert item
       document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li)
+    },
+
+    updateListItem: function(item) {
+      let listItems = document.querySelectorAll(UISelectors.listItems);
+
+      // Turn Nodelist into array
+      listItems = Array.from(listItems);
+
+      listItems.forEach(function(listItem){
+        const itemID = listItem.getAttribute('id');
+
+        if (itemID === `item-${item.id}`) {
+          document.querySelector(`#${itemID}`).innerHTML = `<strong>${item.name}: </strong> <em>${item.calories} calories</em>
+          <a href="#" class="secondary-content">
+            <i class="edit-item fa fa-pencil"></i>
+          </a>`;
+        }
+      });
     },
 
     clearInput: function() {
@@ -267,7 +303,22 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
 
   // Update item submit
   const itemUpdateSubmit = function(e) {
-    console.log('update');
+    // Get item input
+    const input = UICtrl.getItemInput();
+
+    // Update item
+    const updatedItem = ItemCtrl.updateItem(input.name, input.calories);
+
+    // Update UI
+    UICtrl.updateListItem(updatedItem);
+
+    // Get total calories
+    const totalCalories = ItemCtrl.getTotalCalories();
+
+    // Add total calories to UI
+    UICtrl.showTotalCalories(totalCalories);
+
+    UICtrl.clearEditState();
 
     e.preventDefault();
   }
