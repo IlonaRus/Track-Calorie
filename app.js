@@ -25,6 +25,7 @@ const ItemCtrl = (function() {
     getItems: function() {
       return data.items;
     },
+
     addItem: function(name, calories) {
       let ID;
       // Create ID
@@ -247,6 +248,9 @@ const AppCtrl = (function(ItemCtrl, UICtrl) {
 
     // Update item event
     document.querySelector(UISelectors.updateButton).addEventListener('click', itemUpdateSubmit);
+
+    // Back button event
+    document.querySelector(UISelectors.backButton).addEventListener('click', UICtrl.clearEditState);
   }
 
   // Add item submit
