@@ -64,11 +64,6 @@ const StorageCtrl = (function() {
 })();
 
 
-
-
-
-
-
 // Item Controller
 const ItemCtrl = (function() {
   // Item Constructor
@@ -80,11 +75,6 @@ const ItemCtrl = (function() {
 
   // Data Structure/State
   const data = {
-    // items: [
-    //   // {id:0, name: 'Steak Dinner', calories: 1200},
-    //   // {id:1, name: 'Pizza', calories: 900},
-    //   // {id:2, name: 'Cookie', calories: 400}
-    // ],
     items: StorageCtrl.getItemsFromStorage(),
     currentItem: null,
     totalCalories: 0
@@ -119,12 +109,14 @@ const ItemCtrl = (function() {
 
     getItemById: function(id) {
       let found = null;
+
       // Loop through items
       data.items.forEach(function(item) {
         if (item.id === id) {
           found = item;
         }
       });
+
       return found;
     },
 
@@ -248,10 +240,12 @@ const UICtrl = (function() {
       li.id = `item-${item.id}`;
 
       // Add HTML
-      li.innerHTML = `<strong>${item.name}: </strong> <em>${item.calories} calories</em>
+      li.innerHTML = `
+      <strong>${item.name}: </strong> <em>${item.calories} calories</em>
       <a href="#" class="secondary-content">
         <i class="edit-item fa fa-pencil"></i>
-      </a>`;
+      </a>
+      `;
 
       // Insert item
       document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li)
@@ -267,10 +261,12 @@ const UICtrl = (function() {
         const itemID = listItem.getAttribute('id');
 
         if (itemID === `item-${item.id}`) {
-          document.querySelector(`#${itemID}`).innerHTML = `<strong>${item.name}: </strong> <em>${item.calories} calories</em>
+          document.querySelector(`#${itemID}`).innerHTML = `
+          <strong>${item.name}: </strong> <em>${item.calories} calories</em>
           <a href="#" class="secondary-content">
             <i class="edit-item fa fa-pencil"></i>
-          </a>`;
+          </a>
+          `;
         }
       });
     },
@@ -335,8 +331,10 @@ const UICtrl = (function() {
 
 // App Controller
 const AppCtrl = (function(ItemCtrl, StorageCtrl, UICtrl) {
+
   // Load event listeners
   const loadEvenListeners = function() {
+
     // Get UI selectors
     const UISelectors = UICtrl.getSelectors();
 
@@ -369,11 +367,13 @@ const AppCtrl = (function(ItemCtrl, StorageCtrl, UICtrl) {
 
   // Add item submit
   const itemAddSubmit = function(e) {
+
     // Get form input from UI Controller
     const input = UICtrl.getItemInput();
 
     // Check for name and calories input
     if (input.name !== '' && input.calories !== '') {
+
       // Add item
       const newItem = ItemCtrl.addItem(input.name, input.calories);
 
@@ -399,6 +399,7 @@ const AppCtrl = (function(ItemCtrl, StorageCtrl, UICtrl) {
   // Click edit item
   const itemEditClick = function(e) {
     if (e.target.classList.contains('edit-item')) {
+
       // Get list item id(item-0, item-1)
       const listId = e.target.parentNode.parentNode.id;
       
@@ -423,6 +424,7 @@ const AppCtrl = (function(ItemCtrl, StorageCtrl, UICtrl) {
 
   // Update item submit
   const itemUpdateSubmit = function(e) {
+
     // Get item input
     const input = UICtrl.getItemInput();
 
@@ -448,6 +450,7 @@ const AppCtrl = (function(ItemCtrl, StorageCtrl, UICtrl) {
 
   // Delete button event
   const itemDeleteSubmit = function(e) {
+
     // Get current item id
     const currentItem = ItemCtrl.getCurrentItem();
 
@@ -473,11 +476,13 @@ const AppCtrl = (function(ItemCtrl, StorageCtrl, UICtrl) {
 
   // Clear items event
   const clearAllItemsClick = function() {
+
     // Delete all items from data structure
     ItemCtrl.clearAllItems();
 
     // Get total calories
     const totalCalories = ItemCtrl.getTotalCalories();
+
     // Add total calories to UI
     UICtrl.showTotalCalories(totalCalories);
 
@@ -495,6 +500,7 @@ const AppCtrl = (function(ItemCtrl, StorageCtrl, UICtrl) {
   // Public methods
   return {
     init: function() {
+
       // Clear edit state / set initial state
       UICtrl.clearEditState();
 
@@ -511,6 +517,7 @@ const AppCtrl = (function(ItemCtrl, StorageCtrl, UICtrl) {
 
       // Get total calories
       const totalCalories = ItemCtrl.getTotalCalories();
+      
       // Add total calories to UI
       UICtrl.showTotalCalories(totalCalories);
 
